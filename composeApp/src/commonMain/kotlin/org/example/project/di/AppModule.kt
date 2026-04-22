@@ -6,6 +6,7 @@ import org.example.project.domain.usecase.AddHabitUseCase
 import org.example.project.domain.usecase.GetHabitByIdUseCase
 import org.example.project.domain.usecase.ObserveHabitListUseCase
 import org.example.project.domain.usecase.ToggleHabitDoneUseCase
+import org.example.project.presentation.habitdetails.HabitDetailsViewModel
 import org.example.project.presentation.habitlist.HabitListViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -20,4 +21,11 @@ val appModule = module {
     factory { AddHabitUseCase(get()) }
 
     viewModelOf(::HabitListViewModel)
+    factory { (habitId: String) ->
+        HabitDetailsViewModel(
+            habitId = habitId,
+            getHabitByIdUseCase = get(),
+            toggleHabitDoneUseCase = get()
+        )
+    }
 }
