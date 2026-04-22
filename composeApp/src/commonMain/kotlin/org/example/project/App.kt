@@ -7,14 +7,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import org.example.project.di.appModule
+import org.example.project.platform.PlatformActions
 import org.example.project.presentation.habitdetails.HabitDetailsRoute
 import org.example.project.presentation.habitlist.HabitListRoute
 import org.example.project.presentation.navigation.AppRoute
 import org.koin.compose.KoinApplication
 
 
+
 @Composable
-fun App() {
+fun App(
+    platformActions: PlatformActions
+) {
     KoinApplication(
         application = {
             modules(appModule)
@@ -35,6 +39,7 @@ fun App() {
                 is AppRoute.HabitDetails -> {
                     HabitDetailsRoute(
                         habitId = route.habitId,
+                        platformActions = platformActions,
                         onBack = {
                             currentRoute = AppRoute.HabitList
                         }

@@ -8,21 +8,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.example.project.presentation.habitdetails.entities.HabitDetailsModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HabitDetailsScreen(
     state: HabitDetailsViewState,
     onAction: (HabitDetailsAction) -> Unit,
+    onOpenGitHub: () -> Unit,
+    onShareHabit: (HabitDetailsModel) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -85,6 +88,19 @@ fun HabitDetailsScreen(
                         Text(
                             if (habit.doneToday) "Mark as not done" else "Mark as done"
                         )
+                    }
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = {onShareHabit(state.habit)}
+                    ) {
+                        Text("Share / Export progress")
+                    }
+
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = onOpenGitHub
+                    ) {
+                        Text("Open GitHub")
                     }
                 }
             }
